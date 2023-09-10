@@ -542,9 +542,9 @@ void AItem::StartItemCurve(AShooterCharacter* Char, bool bForcePlaySound)
 		ZCurveTime);
 
 	// Get initial Yaw of the Camera
-	const float CameraRotationYaw{ Character->GetFollowCamera()->GetComponentRotation().Yaw };
+	const float CameraRotationYaw{ static_cast<float>(Character->GetFollowCamera()->GetComponentRotation().Yaw) };
 	// Get initial Yaw of the Item
-	const float ItemRotationYaw{ GetActorRotation().Yaw };
+	const float ItemRotationYaw{ static_cast<float>(GetActorRotation().Yaw) };
 	// Initial Yaw offset between Camera and Item
 	InterpInitialYawOffset = ItemRotationYaw - CameraRotationYaw;
 
