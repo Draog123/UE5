@@ -1,0 +1,60 @@
+.h
+
+	UPROPERTY(EditAnywhere, Category = "Spawning")
+		UClass* HealthBlueprint;
+
+
+
+
+
+
+
+
+생성자
+{
+
+	static ConstructorHelpers::FClassFinder<AItem> BPClass(TEXT("/Game/_Game/Ammo/Ammo9mmBP"));
+
+	if (BPClass.Class)
+	{
+		HealthBlueprint = BPClass.Class;
+	}
+
+}
+
+
+
+
+
+void AEnemy::SpawnAmmo()
+{
+
+
+	UWorld* World = GetWorld();
+
+	if (World)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		FVector Location = GetActorLocation();
+		FRotator Rotation = GetActorRotation();
+
+		HealthBlueprint = World->SpawnActor<AItem>(HealthBlueprint, Location, Rotation, SpawnParams);
+
+    HealthBlueprint->SetItemState(EItemState::EIS_PickedUp);
+
+  
+	}
+}
+
+
+
+
+
+
+
+
+
+
